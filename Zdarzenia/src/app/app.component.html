@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form #formularz="ngForm">
+    <div class="formularz">
+      <h1>Zamówienie: </h1>
+      <label>
+        <span>Imię i nazwisko: </span>
+        <input type="text" class="wpis" id="imie" name="imie" [(ngModel)]="imie" required #imieForm="ngModel">
+        <div class="alert" *ngIf="imieForm.invalid && imieForm.touched">Pole imie i nazwisko jest wymagane</div>
+      </label>
+      <label>
+        <span>Email: </span>
+        <input type="text" class="wpis" id="email" name="email" [(ngModel)]="email" required pattern=".+@.+" #emailForm="ngModel">
+        <div class="alert" *ngIf="emailForm.invalid && emailForm.touched"></div>
+        <div class="alert" *ngIf="emailForm.touched && emailForm.errors?.['pattern']">To nie jest email</div>
+      </label>
+      <label>
+        <span>Produkt: </span>
+        <select id="produkt" class="produkt" [(ngModel)]="produkt" name="produkt" required>
+          <option value="pralka">pralka</option>
+          <option value="telewizor">telewizor</option>
+          <option value="lodowka">lodowka</option>
+          <option value="laptop">laptop</option>
+        </select>
+      </label>
+      <label>
+        <span>Ilość: </span>
+        <input type="number" class="wpis" id="ilosc" [(ngModel)]="ilosc" name="ilosc" min="1" max="5">
+      </label>
+      <label>
+        <span>Wiadomość: </span>
+        <textarea class="wiadomosc" id="wiadomosc" [(ngModel)]="wiadomosc" name="wiadomosc"></textarea>
+        <button type="button" class="przycisk" (click)="formularz.resetForm()">Resetuj</button>
+        <button type="submit" class="przycisk" [disabled]="!formularz.form.valid">Zamów</button>
+      </label>
+    </div>
+  </form>
+</body>
+</html>
